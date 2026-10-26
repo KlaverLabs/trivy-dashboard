@@ -1,0 +1,19 @@
+[project]
+name = "trivy-dashboard-service"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Jordy", email = "contact@jordydevrix.com" }
+]
+requires-python = ">=3.15"
+dependencies = [
+    "fastapi>=0.162.0",
+]
+
+[project.scripts]
+trivy-dashboard-service = "trivy_dashboard_service:main"
+
+[build-system]
+requires = ["uv_build>=0.13.4,<0.14.0"]
+build-backend = "uv_build"
