@@ -5,9 +5,12 @@ services:
       - "8085:8085"
     environment:
       WORKERS: "1"
-    # Group that owns the Docker socket on the host: stat -c %g /var/run/docker.sock
-    group_add:
-      - "${DOCKER_GID:-999}"
+    # Root so the Docker socket is readable whatever group owns it on the host.
+    # Access to that socket is already root-equivalent on the host.
+    user: root
+    # Stops SELinux hosts (Fedora, RHEL, ...) from blocking the socket; no effect elsewhere.
+    security_opt:
+      - label=disable
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - trivy-cache:/home/app/.cache/trivy
