@@ -4,12 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Trivy Dashboard{% endblock %}</title>
+    {% block head %}{% endblock %}
     <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
     <header>
         <nav>
             <a class="brand" href="/">Trivy Dashboard</a>
+            <a href="/scans">Scans</a>
             <a href="/settings">Settings</a>
             <a href="/feeds">RSS Feeds</a>
             <a href="/news">News</a>

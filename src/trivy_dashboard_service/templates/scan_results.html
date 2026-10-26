@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Scan #{{ scan.id }} - Trivy Dashboard{% endblock %}
+
+{% block head %}
+{% if running %}<meta http-equiv="refresh" content="3">{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Scan #{{ scan.id }}</h1>
+    <p>
+        <span class="status-{{ scan.status }}">{{ scan.status|capitalize }}</span>
+        <span class="muted">· started {{ scan.started_at }} · duration {{ scan.duration }}</span>
+    </p>
+    <progress value="{{ scan.finished }}" max="{{ scan.total or 1 }}"></progress>
+    <span class="muted">
+        {{ scan.finished }} done, {{ scan.total - scan.finished }} left{% if scan.failed %}, {{ scan.failed }} failed{% endif %}
+    </span>
+</div>
+
+{% for container in containers %}
+<details class="card">
+    <summary>
+        <strong>{{ container.name }}</strong>
+        <span class="muted">{{ container.image }}</span>
+        <span class="versions">
+            running <code>{{ container.current_version or "?" }}</code>
+            · latest <code>{{ container.latest_version or "unknown" }}</code>
+            {% if container.update_available == 1 %}
+            <span class="badge high">Update available</span>
+            {% elif container.update_available == 0 %}
+            <span class="badge low">Up to date</span>
+            {% endif %}
+        </span>
+        <span class="muted">
+            {% if container.status == "done" %}
+            {{ container.vulnerabilities|length }} CVEs
+            {% elif container.status == "failed" %}
+            failed
+            {% else %}
+            {{ container.status }}
+            {% endif %}
+        </span>
+    </summary>
+
+    {% if container.status == "failed" %}
+    <p class="critical">{{ container.error }}</p>
+    {% elif container.vulnerabilities %}
+    <table>
+        <thead>
+            <tr><th>CVE</th><th>Severity</th><th>Package</th><th>Affected version</th><th>Fixed version</th></tr>
+        </thead>
+        <tbody>
+            {% for vuln in container.vulnerabilities %}
+            <tr>
+                <td>{{ vuln.cve_id }}</td>
+                <td class="{{ vuln.severity|lower }}">{{ vuln.severity|capitalize }}</td>
+                <td>{{ vuln.package }}</td>
+                <td>{{ vuln.installed_version }}</td>
+                <td>{{ vuln.fixed_version or "-" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% elif container.status == "done" %}
+    <p class="muted">No vulnerabilities found.</p>
+    {% else %}
+    <p class="muted">Waiting for scan results.</p>
+    {% endif %}
+</details>
+{% else %}
+<div class="card"><p class="muted">No running containers were found.</p></div>
+{% endfor %}
+{% endblock %}

@@ -22,5 +22,5 @@ RUN useradd --create-home --uid 1000 app \
     && mkdir -p "$TRIVY_CACHE_DIR" \
     && chown -R app:app /home/app
 USER app
-EXPOSE 8000
+EXPOSE 8085
 CMD ["trivy-dashboard-service"]

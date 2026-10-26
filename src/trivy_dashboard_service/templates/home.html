@@ -10,7 +10,9 @@
             Scanned since: {{ scanned_since or "never" }}
         </span>
     </div>
-    <button type="button">Start container scan</button>
+    <form method="post" action="/scans">
+        <button type="submit">Start container scan</button>
+    </form>
 </div>
 
 <div class="stats">

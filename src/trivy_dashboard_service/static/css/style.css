@@ -22,3 +22,11 @@ th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #e5e7eb; }
 .high { color: #c2410c; }
 .medium { color: #a16207; }
 .low { color: #15803d; }
+
+progress { vertical-align: middle; margin-right: 0.5rem; }
+summary { cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+details table { margin-top: 1rem; }
+.badge { border: 1px solid currentColor; border-radius: 4px; padding: 0 0.4rem; font-size: 0.85rem; }
+.status-running { color: #2563eb; }
+.status-completed { color: #15803d; }
+.status-failed { color: #b91c1c; }

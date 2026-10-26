@@ -1,11 +1,9 @@
-from pathlib import Path
-
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
-from fastapi.templating import Jinja2Templates
+
+from trivy_dashboard_service.rendering import templates
 
 router = APIRouter()
-templates = Jinja2Templates(directory=Path(__file__).parent.parent / "templates")
 
 
 @router.get("/", response_class=HTMLResponse)

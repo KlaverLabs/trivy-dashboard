@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Scans - Trivy Dashboard{% endblock %}
+
+{% block head %}
+{% if running %}<meta http-equiv="refresh" content="3">{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="top card">
+    <h1>Scans</h1>
+    <form method="post" action="/scans">
+        <button type="submit">Start container scan</button>
+    </form>
+</div>
+
+<div class="card">
+    {% if scans %}
+    <table>
+        <thead>
+            <tr><th>Scan</th><th>Started</th><th>Status</th><th>Progress</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+            {% for scan in scans %}
+            <tr>
+                <td><a href="/scans/{{ scan.id }}">#{{ scan.id }}</a></td>
+                <td>{{ scan.started_at }}</td>
+                <td class="status-{{ scan.status }}">{{ scan.status|capitalize }}</td>
+                <td>
+                    <progress value="{{ scan.finished }}" max="{{ scan.total or 1 }}"></progress>
+                    <span class="muted">{{ scan.finished }} done, {{ scan.total - scan.finished }} left</span>
+                </td>
+                <td>{{ scan.duration }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No scans yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
