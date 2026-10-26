@@ -2,7 +2,7 @@ services:
   trivy-dashboard:
     build: .
     ports:
-      - "8000:8000"
+      - "8085:8085"
     environment:
       WORKERS: "1"
     # Group that owns the Docker socket on the host: stat -c %g /var/run/docker.sock
