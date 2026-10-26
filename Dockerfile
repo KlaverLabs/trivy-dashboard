@@ -17,10 +17,11 @@ COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
 COPY --from=builder /app/.venv /app/.venv
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
-    TRIVY_CACHE_DIR=/home/app/.cache/trivy
+    TRIVY_CACHE_DIR=/home/app/.cache/trivy \
+    DB_PATH=/data/trivy_dashboard.db
 RUN useradd --create-home --uid 1000 app \
-    && mkdir -p "$TRIVY_CACHE_DIR" \
-    && chown -R app:app /home/app
+    && mkdir -p "$TRIVY_CACHE_DIR" /data \
+    && chown -R app:app /home/app /data
 USER app
 EXPOSE 8085
 CMD ["trivy-dashboard-service"]
