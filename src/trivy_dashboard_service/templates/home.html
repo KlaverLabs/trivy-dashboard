@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Trivy Dashboard{% endblock %}
+
+{% block content %}
+<div class="top card">
+    <div>
+        <h1>Overview</h1>
+        <span class="muted">
+            Scanned since: {{ scanned_since or "never" }}
+        </span>
+    </div>
+    <button type="button">Start container scan</button>
+</div>
+
+<div class="stats">
+    <div class="card">
+        <div class="value">{{ container_count }}</div>
+        <div class="muted">Containers</div>
+    </div>
+    {% for severity, count in severity_counts.items() %}
+    <div class="card">
+        <div class="value {{ severity|lower }}">{{ count }}</div>
+        <div class="muted">{{ severity }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h2>CVEs by severity</h2>
+    {% if cves %}
+    <table>
+        <thead>
+            <tr><th>CVE</th><th>Severity</th><th>Affected containers</th></tr>
+        </thead>
+        <tbody>
+            {% for cve in cves %}
+            <tr>
+                <td>{{ cve.id }}</td>
+                <td class="{{ cve.severity|lower }}">{{ cve.severity }}</td>
+                <td>{{ cve.containers }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="muted">No scan results yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

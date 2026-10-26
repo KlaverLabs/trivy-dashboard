@@ -1,0 +1,24 @@
+body { margin: 0; font-family: sans-serif; background: #f4f6f8; color: #222; }
+header { background: #1f2937; padding: 0 1rem; }
+nav { max-width: 960px; margin: 0 auto; display: flex; align-items: center; gap: 1.5rem; }
+nav .brand { color: #fff; font-weight: bold; padding: 1rem 0; margin-right: auto; }
+nav a { color: #cbd5e1; text-decoration: none; }
+nav a:hover { color: #fff; }
+main { max-width: 960px; margin: 1.5rem auto; padding: 0 1rem; }
+.card { background: #fff; border: 1px solid #dde1e6; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; }
+h1, h2 { margin-top: 0; }
+.muted { color: #6b7280; }
+button { background: #2563eb; color: #fff; border: 0; border-radius: 4px; padding: 0.6rem 1.2rem; font-size: 1rem; cursor: pointer; }
+button:hover { background: #1d4ed8; }
+
+.top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.top h1 { margin-bottom: 0.25rem; }
+.stats { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+.stats .card { flex: 1; margin-bottom: 0; text-align: center; }
+.stats .value { font-size: 2rem; font-weight: bold; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #e5e7eb; }
+.critical { color: #b91c1c; }
+.high { color: #c2410c; }
+.medium { color: #a16207; }
+.low { color: #15803d; }

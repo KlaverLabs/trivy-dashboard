@@ -4,8 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Trivy Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <header>
+        <nav>
+            <a class="brand" href="/">Trivy Dashboard</a>
+            <a href="/settings">Settings</a>
+            <a href="/feeds">RSS Feeds</a>
+            <a href="/news">News</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
