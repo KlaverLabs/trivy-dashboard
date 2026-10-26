@@ -1,0 +1,13 @@
+services:
+  trivy-dashboard:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      WORKERS: "1"
+    volumes:
+      - trivy-cache:/home/app/.cache/trivy
+    restart: unless-stopped
+
+volumes:
+  trivy-cache:
